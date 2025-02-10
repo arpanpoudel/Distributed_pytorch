@@ -50,6 +50,7 @@ def create_dataloader(configs,evaluation=False,transform=None):
         transform = T.Compose([T.ToTensor()])
     train_dataset = MRI_dataset(configs.data.train,transform=transform)
     eval_dataset = MRI_dataset(configs.data.eval,transform=transform)
-    train_dataloader = DataLoader(train_dataset, batch_size=configs.training.batch_size, shuffle=False,drop_last=True)
+    sampler= DistributedSampler(train_dataset, shuffle=True)
+    train_dataloader = DataLoader(train_dataset, batch_size=configs.training.batch_size, shuffle=False,drop_last=True, sampler=sampler)
     eval_dataloader = DataLoader(eval_dataset, batch_size=configs.training.batch_size, shuffle=shuffle,drop_last=True)
     return train_dataloader,eval_dataloader

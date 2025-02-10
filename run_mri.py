@@ -90,6 +90,7 @@ def train(config, workdir):
   transform= T.Compose([T.ToTensor()])
   train_dl,eval_dl= datasets.create_dataloader(config,transform=transform)
   num_data = len(train_dl.dataset)
+  print(f'Number of training data: {num_data}')
 
 
   # Build one-step training and evaluation functions
